@@ -1,10 +1,12 @@
-import { useParams } from "react-router-dom";
+import { Link, Outlet, useParams, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { searchMovieById } from "../../api";
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const location = useLocation();
+  const backLinkHref = location.state ?? "/movies";
 
   useEffect(() => {
     async function fetchMovie() {
@@ -23,7 +25,15 @@ const MovieDetailsPage = () => {
     return <div>Loading...</div>;
   }
 
-  return <div>{movie.title}</div>;
+  return (
+    <div>
+      <Link to={backLinkHref}>Back</Link>
+      {movie.title}
+      <Link to="cast">Cast</Link>
+      <Link to="reviews">Reviews</Link>
+      <Outlet />
+    </div>
+  );
 };
 
 export default MovieDetailsPage;

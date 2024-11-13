@@ -1,16 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-const MovieList = ({ movies, onMovieClick }) => {
+const MovieList = ({ movies }) => {
+  const location = useLocation();
+
   return (
     <div>
       {movies.map((movie) => (
-        <div
-          key={movie.id}
-          onClick={() => {
-            onMovieClick(movie.id);
-          }}
-        >
-          <Link to={`${movie.id}`}>
+        <div key={movie.id}>
+          <Link to={`/movies/${movie.id}`} state={location}>
             <p>{movie.title}</p>
           </Link>
         </div>
@@ -18,4 +15,5 @@ const MovieList = ({ movies, onMovieClick }) => {
     </div>
   );
 };
+
 export default MovieList;

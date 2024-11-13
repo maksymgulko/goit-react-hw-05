@@ -1,10 +1,10 @@
 import { searchTrendingMovies } from "../../api";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import MovieList from "../../components/MovieList/MovieList";
 
 const HomePage = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate()
   const [trendingMovies, setTrendingMovies] = useState([]);
 
   useEffect(() => {
@@ -19,13 +19,9 @@ const HomePage = () => {
     getTrendingMovies();
   }, []);
 
-  const handleMovieClick = (movieId) => {
-    navigate(`/movies/${movieId}`);
-  };
-
   return (
     <div>
-      <MovieList movies={trendingMovies} onMovieClick={handleMovieClick} />
+      <MovieList movies={trendingMovies} />
     </div>
   );
 };

@@ -36,3 +36,16 @@ export const searchMovieById = async (movieId) => {
     return null;
   }
 };
+
+export const searchMovieByName = async (movieName) => {
+  try {
+    const response = await axios.get(
+      `/3/search/movie?query=${movieName}&include_adult=false&language=en-US&page=1`,
+      options
+    );
+    return response.data.results;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
