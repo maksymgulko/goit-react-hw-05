@@ -28,9 +28,29 @@ const MovieDetailsPage = () => {
   return (
     <div>
       <Link to={backLinkHref}>Back</Link>
-      {movie.title}
-      <Link to="cast">Cast</Link>
-      <Link to="reviews">Reviews</Link>
+      <h1>
+        {movie.title} ({movie.release_date.substring(0, 4)})
+      </h1>
+      {"User score: " + Math.round(movie.vote_average * 10) + "%"}
+      <h2>Overview</h2>
+      {movie.overview}
+      <h2>Genres</h2>
+      {movie.genres.map((genre) => (
+        <li key={genre.id}>{genre.name}</li>
+      ))}
+      <h3>Additional information</h3>
+      <ul>
+        <li>
+          <Link to="cast" state={backLinkHref}>
+            Cast
+          </Link>
+        </li>
+        <li>
+          <Link to="reviews" state={backLinkHref}>
+            Reviews
+          </Link>
+        </li>
+      </ul>
       <Outlet />
     </div>
   );
