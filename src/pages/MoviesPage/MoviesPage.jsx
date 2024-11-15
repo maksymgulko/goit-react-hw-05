@@ -10,22 +10,23 @@ const MoviesPage = () => {
   const movieTitle = searchParams.get("query") ?? "";
 
   useEffect(() => {
-    const savedMovies = localStorage.getItem("movies");
-    if (savedMovies) {
-      setMovies(JSON.parse(savedMovies));
-    }
-  }, []);
+    if (!movieTitle) return;
 
-  const handleSearch = async (query) => {
-    try {
-      const data = await searchMovieByName(query);
-      setMovies(data);
-      localStorage.setItem("movies", JSON.stringify(data));
-      const nextParams = query !== "" ? { query } : {};
-      setSearchParams(nextParams);
-    } catch (e) {
-      console.error(e);
-    }
+    const fetchMovies = async () => {
+      try {
+        const data = await searchMovieByName(movieTitle);
+        setMovies(data);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    fetchMovies();
+  }, [movieTitle]);
+
+  const handleSearch = (query) => {
+    const nextParams = query !== "" ? { query } : {};
+    setSearchParams(nextParams);
   };
 
   return (
